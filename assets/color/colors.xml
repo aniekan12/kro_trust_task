@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="success-green" type="material">#4CAF50</color>
+    <color name="primary" type="material">#EF9C66</color>
+    <color name="secondary" type="material">#78ABA8</color>
+    <color name="black" type="material">#1D1D1D</color>
+    <color name="body-text" type="material">#333333</color>
+    <color name="header-text" type="material">#1F1F1F</color>
+    <color name="grey-text" type="material">#505050</color>
+    <color name="grey" type="material">#505050</color>
+    <color name="neutral" type="material">#B1B1B1</color>
+    <color name="white" type="material">#FFFFFF</color>
+    <color name="alternate-support-1" type="material">#FFF4ED</color>
+    <color name="input-background" type="material">#F4F6F9</color>
+    <color name="input-text" type="material">#75808A</color>
+    <color name="strokes" type="material">#DADADA</color>
+    <color name="grey-background" type="material">#F9F9F9</color>
+</resources>
