@@ -1,0 +1,83 @@
+name: kro_trust_task
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  custom_refresh_indicator:
+  dio: 
+  dotted_border: 
+  equatable: ^2.0.5
+  file_picker:
+  firebase_analytics: 
+  firebase_core: 
+  flutter_email_sender: ^5.2.0
+  flutter_libphonenumber:
+  flutter_native_splash: 
+  flutter_otp_text_field: 
+  flutter_overlay_loader: 
+  flutter_secure_storage:
+  flutter_spinkit: 
+  flutter_svg: 
+  freezed_annotation:
+  get_it:
+  go_router: 
+  grouped_list: 
+  infinite_scroll_pagination:
+  intl: ^0.19.0
+  oktoast:
+  package_info_plus: ^4.1.0
+  path_provider: ^2.1.3
+  permission_handler: ^10.2.0
+  pinput: 
+  provider: 
+  retrofit: ^4.0.3
+  shared_preferences: ^2.0.15
+  shared_preferences_android: ^2.0.10
+  shared_preferences_ios:
+  shimmer: ^3.0.0
+  skeletonizer: ^1.1.1
+  smooth_page_indicator: 
+  url_launcher:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  build_runner:
+  flutter_gen_runner:
+  flutter_screenutil:
+  freezed: ^2.3.4
+  freezed_annotation: ^2.2.0
+  injectable_generator:
+  json_serializable:
+  mockito:
+  http_mock_adapter:
+  retrofit_generator: ^7.0.1
+
+flutter:
+  uses-material-design: true
+  fonts:
+    - family: Plus Jakarta Sans
+      fonts:
+        - asset: assets/fonts/ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Bold.ttf
+          weight: 700
+        - asset: assets/fonts/SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Light.ttf
+          weight: 300
+        - asset: assets/fonts/ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/ExtraLight.ttf
+          weight: 100
