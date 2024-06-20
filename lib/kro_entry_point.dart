@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kro_trust_task/common/di/app_module.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 class KroEntryPoint extends StatefulWidget {
   const KroEntryPoint({super.key});

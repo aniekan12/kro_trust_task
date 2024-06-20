@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:irecharge_app_module_starter/common/io/exceptions/irecharge_exception.dart';
+import 'package:kro_resources/common/logger/kro_logger_factory.dart';
 import 'package:meta/meta.dart';
 
-import 'logger/logger_factory.dart';
+import 'exceptions/kro_exceptions.dart';
 
 mixin NetworkBoundResource {
   @protected
@@ -109,13 +109,13 @@ mixin NetworkBoundResource {
         }
       }).catchError((Object err) {
         if (err is DioException) {
-          controller.emitSafely(
-              Resource.failure(IRechargeException.fromHttpError(err)));
+          controller
+              .emitSafely(Resource.failure(KroException.fromHttpError(err)));
           LoggerFactory.getLogger().error('DioException Error Exception', err);
         } else if (err is TypeError) {
           LoggerFactory.getLogger().error('TypeError Exception', err);
-          controller.emitSafely(
-              Resource.failure(IRechargeException.fromTypeError(err)));
+          controller
+              .emitSafely(Resource.failure(KroException.fromTypeError(err)));
         }
         log(err.toString());
         controller.closeSafely();
@@ -158,8 +158,7 @@ sealed class Resource<S> {
   factory Resource.success(S value) = Success<S>;
 
   /// Returns an instance that encapsulates a throwable as a failure.
-  factory Resource.failure(IRechargeException throwable, {S? value}) =
-      Failure<S>;
+  factory Resource.failure(KroException throwable, {S? value}) = Failure<S>;
 
   /// Returns an instance that encapsulates a throwable as a loading.
   factory Resource.loading(S value) = Loading<S>;
@@ -177,7 +176,7 @@ sealed class Resource<S> {
   /// [onFailure] can be used to map/process
   /// the error and stacktrace to any throwable of type [T] before
   /// the failure instance is returned
-  static Resource<V> guardSync<V, T extends IRechargeException>({
+  static Resource<V> guardSync<V, T extends KroException>({
     required V Function() function,
     T Function(Object throwable, StackTrace stackTrace)? onFailure,
   }) {
@@ -202,7 +201,7 @@ sealed class Resource<S> {
   /// [onFailure] can be used to map/process
   /// the error and stacktrace to any throwable of type [T] before
   /// the failure instance is returned
-  static Future<Resource<V>> guardAsync<V, T extends IRechargeException>({
+  static Future<Resource<V>> guardAsync<V, T extends KroException>({
     required Future<V> Function() function,
     T Function(Object throwable, StackTrace stackTrace)? onFailure,
   }) async {
@@ -227,7 +226,7 @@ sealed class Resource<S> {
   /// [onFailure] can be used to map/process
   /// the error and stacktrace to any throwable of type [T] before
   /// the failure instance is returned
-  static Stream<Resource<V>> guardEmit<V, T extends IRechargeException>({
+  static Stream<Resource<V>> guardEmit<V, T extends KroException>({
     required Stream<V> Function() function,
     T Function(Object throwable, StackTrace stackTrace)? onFailure,
   }) async* {
@@ -270,7 +269,7 @@ sealed class Resource<S> {
   /// The encapsulated throwable if this instance represents a failure.
   ///
   /// If this instance represents a success, it returns null
-  IRechargeException? get throwableOrNull;
+  KroException? get throwableOrNull;
 
   /// Returns the encapsulated value if this instance represents a success.
   ///
@@ -281,7 +280,7 @@ sealed class Resource<S> {
   ///
   /// If this instance represents a failure, it returns the result of
   /// [ orElse]
-  S valueOrElse({required S Function(IRechargeException throwable) orElse});
+  S valueOrElse({required S Function(KroException throwable) orElse});
 
   /// Returns the encapsulated value if this instance represents a success.
   ///
@@ -300,7 +299,7 @@ sealed class Resource<S> {
   /// the result of [onFailure]
   void when<T>({
     required T Function(S value) onSuccess,
-    required T Function(IRechargeException throwable) onFailure,
+    required T Function(KroException throwable) onFailure,
     required T Function(S? value) onLoading,
   });
 
@@ -315,7 +314,7 @@ sealed class Resource<S> {
   /// this instance represents failure and returns the original instance
   /// unchanged.
   void maybeWhen({
-    void Function(IRechargeException throwable)? onFailure,
+    void Function(KroException throwable)? onFailure,
     void Function(S? value)? onLoading,
     void Function(S value)? onSuccess,
   });
@@ -323,7 +322,7 @@ sealed class Resource<S> {
   /// Runs [onFailure] on the encapsulated throwable if
   /// this instance represents failure and returns the original instance
   /// unchanged.
-  void whenFailure(void Function(IRechargeException throwable) onFailure);
+  void whenFailure(void Function(KroException throwable) onFailure);
 
   //==========================================================================
   // Transforming values and exceptions
@@ -349,8 +348,8 @@ sealed class Resource<S> {
   /// Returns the encapsulated result of the given [transformer] applied
   /// to the encapsulated throwable if this instance represents a failure or
   /// the original encapsulated value if it is a success.
-  Resource<S> mapFailure<T extends IRechargeException>(
-    T Function(IRechargeException throwable) transformer,
+  Resource<S> mapFailure<T extends KroException>(
+    T Function(KroException throwable) transformer,
   );
 
   /// Returns the encapsulated result of the given [transformer] applied
@@ -359,15 +358,15 @@ sealed class Resource<S> {
   ///
   /// If an error occurs while running the given [transformer],
   /// it returns a failure.
-  Resource<S> guardMapFailure<T extends IRechargeException>(
-    T Function(IRechargeException throwable) transformer,
+  Resource<S> guardMapFailure<T extends KroException>(
+    T Function(KroException throwable) transformer,
   );
 
   /// Returns a success after applying the given [transformer]
   /// to the encapsulated throwable if this instance represents a failure or
   /// the original encapsulated value if it is a success.
   Resource<S> recover(
-    S Function(IRechargeException throwable) transformer,
+    S Function(KroException throwable) transformer,
   );
 
   /// Returns a success after applying the given [transformer]
@@ -377,7 +376,7 @@ sealed class Resource<S> {
   /// If an error occurs while running the given [transformer],
   /// it returns a failure.
   Resource<S> guardRecover(
-    S Function(IRechargeException throwable) transformer,
+    S Function(KroException throwable) transformer,
   );
 
   /// Returns the encapsulated result of the given [transformer] applied
@@ -413,14 +412,13 @@ class Success<S> extends Resource<S> {
   S get valueOrNull => value;
 
   @override
-  IRechargeException? get throwableOrNull => null;
+  KroException? get throwableOrNull => null;
 
   @override
   S valueOrDefault({required S defaultValue}) => value;
 
   @override
-  S valueOrElse({required S Function(IRechargeException throwable) orElse}) =>
-      value;
+  S valueOrElse({required S Function(KroException throwable) orElse}) => value;
 
   @override
   S valueOrThrow() => value;
@@ -428,7 +426,7 @@ class Success<S> extends Resource<S> {
   @override
   T when<T>({
     required T Function(S value) onSuccess,
-    required T Function(IRechargeException failure) onFailure,
+    required T Function(KroException failure) onFailure,
     required T Function(S? value) onLoading,
   }) {
     return onSuccess(value);
@@ -443,8 +441,7 @@ class Success<S> extends Resource<S> {
   }
 
   @override
-  Resource<S> whenFailure(
-      void Function(IRechargeException throwable) onFailure) {
+  Resource<S> whenFailure(void Function(KroException throwable) onFailure) {
     return this;
   }
 
@@ -465,29 +462,29 @@ class Success<S> extends Resource<S> {
   }
 
   @override
-  Resource<S> mapFailure<T extends IRechargeException>(
-    T Function(IRechargeException throwable) transformer,
+  Resource<S> mapFailure<T extends KroException>(
+    T Function(KroException throwable) transformer,
   ) {
     return Resource.success(value);
   }
 
   @override
-  Resource<S> guardMapFailure<T extends IRechargeException>(
-    T Function(IRechargeException throwable) transformer,
+  Resource<S> guardMapFailure<T extends KroException>(
+    T Function(KroException throwable) transformer,
   ) {
     return Resource.success(value);
   }
 
   @override
   Resource<S> recover(
-    S Function(IRechargeException throwable) transformer,
+    S Function(KroException throwable) transformer,
   ) {
     return Success(value);
   }
 
   @override
   Resource<S> guardRecover(
-    S Function(IRechargeException throwable) transformer,
+    S Function(KroException throwable) transformer,
   ) {
     return Success(value);
   }
@@ -503,7 +500,7 @@ class Success<S> extends Resource<S> {
 
   @override
   Resource<S> maybeWhen(
-      {void Function(IRechargeException throwable)? onFailure,
+      {void Function(KroException throwable)? onFailure,
       void Function(S? value)? onLoading,
       void Function(S value)? onSuccess}) {
     onSuccess?.call(value);
@@ -527,20 +524,20 @@ class Failure<S> extends Resource<S> {
   const Failure(this.throwable, {this.value});
 
   /// The encapsulated throwable
-  final IRechargeException throwable;
+  final KroException throwable;
   final S? value;
 
   @override
   S? get valueOrNull => value;
 
   @override
-  IRechargeException? get throwableOrNull => throwable;
+  KroException? get throwableOrNull => throwable;
 
   @override
   S valueOrDefault({required S defaultValue}) => defaultValue;
 
   @override
-  S valueOrElse({required S Function(IRechargeException failure) orElse}) =>
+  S valueOrElse({required S Function(KroException failure) orElse}) =>
       orElse(throwable);
 
   @override
@@ -554,7 +551,7 @@ class Failure<S> extends Resource<S> {
   @override
   T when<T>({
     required T Function(S value) onSuccess,
-    required T Function(IRechargeException failure) onFailure,
+    required T Function(KroException failure) onFailure,
     required T Function(S value) onLoading,
   }) {
     return onFailure(throwable);
@@ -568,8 +565,7 @@ class Failure<S> extends Resource<S> {
   }
 
   @override
-  Resource<S> whenFailure(
-      void Function(IRechargeException throwable) onFailure) {
+  Resource<S> whenFailure(void Function(KroException throwable) onFailure) {
     onFailure(throwable);
     return this;
   }
@@ -583,16 +579,16 @@ class Failure<S> extends Resource<S> {
       Resource.failure(throwable, value: null);
 
   @override
-  Resource<S> mapFailure<T extends IRechargeException>(
-    T Function(IRechargeException throwable) transformer,
+  Resource<S> mapFailure<T extends KroException>(
+    T Function(KroException throwable) transformer,
   ) {
     final transformedThrowable = transformer(throwable);
     return Resource.failure(transformedThrowable);
   }
 
   @override
-  Resource<S> guardMapFailure<T extends IRechargeException>(
-    T Function(IRechargeException throwable) transformer,
+  Resource<S> guardMapFailure<T extends KroException>(
+    T Function(KroException throwable) transformer,
   ) {
     return Resource.guardSync(
       function: () {
@@ -607,7 +603,7 @@ class Failure<S> extends Resource<S> {
 
   @override
   Resource<S> recover(
-    S Function(IRechargeException throwable) transformer,
+    S Function(KroException throwable) transformer,
   ) {
     final transformedValue = transformer(throwable);
     return Success(transformedValue);
@@ -615,7 +611,7 @@ class Failure<S> extends Resource<S> {
 
   @override
   Resource<S> guardRecover(
-    S Function(IRechargeException throwable) transformer,
+    S Function(KroException throwable) transformer,
   ) {
     return Resource.guardSync(
       function: () {
@@ -637,7 +633,7 @@ class Failure<S> extends Resource<S> {
 
   @override
   Resource<S> maybeWhen(
-      {void Function(IRechargeException throwable)? onFailure,
+      {void Function(KroException throwable)? onFailure,
       void Function(S? value)? onLoading,
       void Function(S value)? onSuccess}) {
     onFailure?.call(throwable);
@@ -662,14 +658,13 @@ class Loading<S> extends Resource<S> {
   S? get valueOrNull => value;
 
   @override
-  IRechargeException? get throwableOrNull => null;
+  KroException? get throwableOrNull => null;
 
   @override
   S valueOrDefault({required S defaultValue}) => value;
 
   @override
-  S valueOrElse({required S Function(IRechargeException throwable) orElse}) =>
-      value;
+  S valueOrElse({required S Function(KroException throwable) orElse}) => value;
 
   @override
   S valueOrThrow() => value;
@@ -677,7 +672,7 @@ class Loading<S> extends Resource<S> {
   @override
   T when<T>({
     required T Function(S value) onSuccess,
-    required T Function(IRechargeException failure) onFailure,
+    required T Function(KroException failure) onFailure,
     required T Function(S? value) onLoading,
   }) {
     return onLoading(value);
@@ -690,7 +685,7 @@ class Loading<S> extends Resource<S> {
 
   @override
   Resource<S> whenFailure(
-    void Function(IRechargeException throwable) onFailure,
+    void Function(KroException throwable) onFailure,
   ) {
     return this;
   }
@@ -712,29 +707,29 @@ class Loading<S> extends Resource<S> {
   }
 
   @override
-  Resource<S> mapFailure<T extends IRechargeException>(
-    T Function(IRechargeException throwable) transformer,
+  Resource<S> mapFailure<T extends KroException>(
+    T Function(KroException throwable) transformer,
   ) {
     return Resource.loading(value);
   }
 
   @override
-  Resource<S> guardMapFailure<T extends IRechargeException>(
-    T Function(IRechargeException throwable) transformer,
+  Resource<S> guardMapFailure<T extends KroException>(
+    T Function(KroException throwable) transformer,
   ) {
     return Resource.loading(value);
   }
 
   @override
   Resource<S> recover(
-    S Function(IRechargeException throwable) transformer,
+    S Function(KroException throwable) transformer,
   ) {
     return Loading(value);
   }
 
   @override
   Resource<S> guardRecover(
-    S Function(IRechargeException throwable) transformer,
+    S Function(KroException throwable) transformer,
   ) {
     return Loading(value);
   }
@@ -750,7 +745,7 @@ class Loading<S> extends Resource<S> {
 
   @override
   Resource<S> maybeWhen(
-      {void Function(IRechargeException throwable)? onFailure,
+      {void Function(KroException throwable)? onFailure,
       void Function(S? value)? onLoading,
       void Function(S value)? onSuccess}) {
     onLoading?.call(value);
@@ -778,7 +773,7 @@ class _NetworkBoundResourceImpl<S> extends Resource<S> {
   void Function()? onListen;
 
   S? _value;
-  IRechargeException? _throwable;
+  KroException? _throwable;
 
   void _createStream() {
     _controller.onListen = () {
@@ -812,28 +807,27 @@ class _NetworkBoundResourceImpl<S> extends Resource<S> {
   }
 
   @override
-  Resource<S> guardMapFailure<T extends IRechargeException>(
-      T Function(IRechargeException throwable) transformer) {
+  Resource<S> guardMapFailure<T extends KroException>(
+      T Function(KroException throwable) transformer) {
     // TODO(paul): implement guardMapFailure
     throw UnimplementedError();
   }
 
   @override
-  Resource<S> guardRecover(
-      S Function(IRechargeException throwable) transformer) {
+  Resource<S> guardRecover(S Function(KroException throwable) transformer) {
     // TODO(paul): implement guardRecover
     throw UnimplementedError();
   }
 
   @override
-  Resource<S> mapFailure<T extends IRechargeException>(
-      T Function(IRechargeException throwable) transformer) {
+  Resource<S> mapFailure<T extends KroException>(
+      T Function(KroException throwable) transformer) {
     return Resource.failure(transformer(_throwable!));
   }
 
   @override
   void maybeWhen(
-      {void Function(IRechargeException throwable)? onFailure,
+      {void Function(KroException throwable)? onFailure,
       void Function(S? value)? onLoading,
       void Function(S value)? onSuccess}) {
     _callback
@@ -844,12 +838,12 @@ class _NetworkBoundResourceImpl<S> extends Resource<S> {
   }
 
   @override
-  Resource<S> recover(S Function(IRechargeException throwable) transformer) {
+  Resource<S> recover(S Function(KroException throwable) transformer) {
     throw UnimplementedError();
   }
 
   @override
-  IRechargeException? get throwableOrNull => _throwable;
+  KroException? get throwableOrNull => _throwable;
 
   @override
   S valueOrDefault({required S defaultValue}) {
@@ -857,7 +851,7 @@ class _NetworkBoundResourceImpl<S> extends Resource<S> {
   }
 
   @override
-  S valueOrElse({required S Function(IRechargeException throwable) orElse}) {
+  S valueOrElse({required S Function(KroException throwable) orElse}) {
     return _value ?? orElse(_throwable!);
   }
 
@@ -869,7 +863,7 @@ class _NetworkBoundResourceImpl<S> extends Resource<S> {
     if (null != _throwable && _throwable is Error) {
       throw _throwable!;
     }
-    if (_throwable is IRechargeException) {
+    if (_throwable is KroException) {
       throw _throwable!;
     }
     return _value!;
@@ -878,7 +872,7 @@ class _NetworkBoundResourceImpl<S> extends Resource<S> {
   @override
   void when<T>(
       {required T Function(S value) onSuccess,
-      required T Function(IRechargeException throwable) onFailure,
+      required T Function(KroException throwable) onFailure,
       required T Function(S? value) onLoading}) {
     _callback
       ..onLoading = onLoading
@@ -888,7 +882,7 @@ class _NetworkBoundResourceImpl<S> extends Resource<S> {
   }
 
   @override
-  void whenFailure(void Function(IRechargeException throwable) onFailure) {
+  void whenFailure(void Function(KroException throwable) onFailure) {
     _callback.onFailure = onFailure;
     _listen();
   }
@@ -909,11 +903,11 @@ class _NetworkBoundResourceImpl<S> extends Resource<S> {
     final StreamSubscription<dynamic> subs = stream.listen(_callback.invoke);
     subs
       ..onError((Object e) {
-        if (e is IRechargeException) {
+        if (e is KroException) {
           _callback.onFailure?.call(e);
           _callback.onResource?.call(Failure(e));
         } else {
-          final exception = IRechargeException.fromMessage(e.toString());
+          final exception = KroException.fromMessage(e.toString());
           _callback.onFailure?.call(exception);
           _callback.onResource?.call(Failure(exception));
         }
@@ -978,7 +972,7 @@ class _NetworkBoundResourceImpl<S> extends Resource<S> {
 
 class _ResourceCallback<S> {
   void Function(S? loading)? onLoading;
-  void Function(IRechargeException throwable)? onFailure;
+  void Function(KroException throwable)? onFailure;
   void Function(S success)? onSuccess;
   void Function(Resource<S> resourceValue)? onResource;
 
