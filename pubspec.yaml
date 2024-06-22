@@ -13,6 +13,7 @@ dependencies:
   dio: 
   dotted_border: 
   equatable: ^2.0.5
+  dartz: 
   file_picker:
   firebase_analytics: 
   firebase_core: 
@@ -30,6 +31,8 @@ dependencies:
   grouped_list: 
   infinite_scroll_pagination:
   intl: ^0.19.0
+  bloc:
+  flutter_bloc:
   oktoast:
   package_info_plus: ^4.1.0
   path_provider: ^2.1.3

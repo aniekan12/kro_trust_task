@@ -1,3 +1,3 @@
-abstract class Usecase<I, O> {
-  Future<O> execute(I input);
+abstract class UseCase<I, O> {
+  O execute(I input);
 }
