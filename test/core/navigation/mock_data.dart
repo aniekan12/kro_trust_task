@@ -13,3 +13,15 @@ final nullMockLoginReponse = {
   'savings_balance': null,
   'checkings_balance': null,
 };
+
+final mockTransactionResponse = {
+  "data": [
+    {
+      "date": "2024-05-01",
+      "description": "Opening balance",
+      "amount": "-",
+      "type": "Opening",
+      "balance": "₦5,000.00"
+    },
+  ]
+};

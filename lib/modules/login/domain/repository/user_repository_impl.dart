@@ -18,7 +18,7 @@ class UserRepositoryImpl implements UserRepository {
       final result = await _userDataSource.login(dto: dto);
       return Right(result);
     } catch (e) {
-      return Left(KroException.fromMessage(e.toString()));
+      throw Left(KroException.fromMessage(e.toString()));
     }
   }
 }

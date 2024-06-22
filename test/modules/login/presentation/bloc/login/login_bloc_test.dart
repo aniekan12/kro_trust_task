@@ -1,5 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kro_trust_task/core/base/base_state.bloc.dart';
 import 'package:kro_trust_task/modules/login/data/datasource/user_datasource.dart';
 import 'package:kro_trust_task/modules/login/data/dto/login_dto.dart';
 import 'package:kro_trust_task/modules/login/data/models/login_response.dart';
@@ -30,7 +31,7 @@ void main() {
   });
 
   group('login bloc', () {
-    blocTest<LoginBloc, LoginState>(
+    blocTest<LoginBloc, BaseBlocState<LoginResponse>>(
         'emits login success when login event is added.',
         build: () => LoginBloc(loginUsecase: loginUsecase),
         act: (bloc) {
@@ -38,8 +39,9 @@ void main() {
               LoginDto(email: 'akpakpan764@gmail.com', password: 'Password123');
           bloc.add(const LoginEvent.login(loginDto: loginDto));
         },
-        expect: () => <LoginState>[
-              LoginState.next(LoginResponse.fromJson(mockLoginReponse))
+        expect: () => <BaseBlocState<LoginResponse>>[
+              const BaseBlocState.loading(),
+              BaseBlocState.next(LoginResponse.fromJson(mockLoginReponse))
             ]);
   });
 }

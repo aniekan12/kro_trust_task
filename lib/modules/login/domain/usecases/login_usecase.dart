@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:kro_resources/common/io/exceptions/kro_exceptions.dart';
-import 'package:kro_resources/common/io/resource.dart';
 import 'package:kro_trust_task/common/di/app_module.dart';
 import 'package:kro_trust_task/core/usecase/usecase.dart';
 import 'package:kro_trust_task/modules/login/data/dto/login_dto.dart';
