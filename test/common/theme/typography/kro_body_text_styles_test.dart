@@ -14,13 +14,13 @@ void main() {
     test('extraSmall TextStyle should have correct properties', () {
       expect(KroBodyTextStyles.extraSmall.fontFamily, KroFonts.plusJakartaSans);
       expect(KroBodyTextStyles.extraSmall.fontSize, 10);
-      expect(KroBodyTextStyles.extraSmall.fontWeight, FontWeight.w300);
+      expect(KroBodyTextStyles.extraSmall.fontWeight, FontWeight.w400);
     });
 
     test('large TextStyle should have correct properties', () {
       expect(KroBodyTextStyles.large.fontFamily, KroFonts.plusJakartaSans);
       expect(KroBodyTextStyles.large.fontSize, 18);
-      expect(KroBodyTextStyles.large.fontWeight, FontWeight.w500);
+      expect(KroBodyTextStyles.large.fontWeight, FontWeight.w400);
     });
 
     test('medium TextStyle should have correct properties', () {

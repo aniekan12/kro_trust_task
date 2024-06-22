@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:kro_resources/common/io/resource.dart';
 import 'package:kro_trust_task/modules/login/data/dto/login_dto.dart';
 import 'package:kro_trust_task/modules/login/data/models/login_response.dart';
 import 'package:kro_trust_task/modules/login/domain/usecases/login_usecase.dart';
@@ -16,21 +15,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       : _loginUsecase = loginUsecase ?? LoginUsecase.instance(),
         super(const LoginState.initial()) {
     on<LoginEvent>((event, emit) async {
-      event.map(
-        login: (_) {
+      await event.map(
+        login: (_) async {
           final input = LoginDto(
             email: _.loginDto.email,
             password: _.loginDto.password,
           );
-          _loginUsecase.execute(input).whenResource((event) {
-            return switch (event) {
-              Loading() => emit(const LoginState.loadInProgress()),
-              Success(valueOrNull: final data) => emit(LoginState.next(data!)),
-              Failure(throwable: final error) =>
-                emit(LoginState.error(error.message)),
-              _ => throw UnimplementedError(),
-            };
-          });
+          final result = await _loginUsecase.invoke(input);
+          result.fold(
+            (l) => emit(LoginState.error(l.message)),
+            (r) => emit(LoginState.next(r)),
+          );
         },
         logout: (_) {},
       );
