@@ -4,6 +4,7 @@ import 'package:kro_trust_task/core/base/base_state.bloc.dart';
 import 'package:kro_trust_task/modules/login/data/dto/login_dto.dart';
 import 'package:kro_trust_task/modules/login/data/models/login_response.dart';
 import 'package:kro_trust_task/modules/login/domain/usecases/login_usecase.dart';
+import 'package:kro_trust_task/modules/login/presentation/form/login_form.dart';
 
 part 'login_event.dart';
 part 'login_bloc.freezed.dart';
@@ -11,6 +12,7 @@ part 'login_bloc.freezed.dart';
 class LoginBloc extends Bloc<LoginEvent, BaseBlocState<LoginResponse>> {
   final LoginUsecase _loginUsecase;
 
+  final form = LoginForm();
   LoginBloc({LoginUsecase? loginUsecase})
       : _loginUsecase = loginUsecase ?? LoginUsecase.instance(),
         super(const BaseBlocState.init()) {
@@ -19,12 +21,12 @@ class LoginBloc extends Bloc<LoginEvent, BaseBlocState<LoginResponse>> {
         login: (_) async {
           emit(const BaseBlocState.loading());
           final input = LoginDto(
-            email: _.loginDto.email,
-            password: _.loginDto.password,
+            email: form.emailController.controller.text,
+            password: form.passwordController.controller.text,
           );
           final result = await _loginUsecase.invoke(input);
           result.fold(
-            (l) => emit(BaseBlocState.error(l.message)),
+            (l) => emit(BaseBlocState.error(l)),
             (r) => emit(BaseBlocState.next(r)),
           );
         },

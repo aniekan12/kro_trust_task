@@ -20,7 +20,7 @@ class TransactionHistoryBloc
         emit(const BaseBlocState.loading());
         final result = await _fetchTransactionHistoryUseCase.invoke();
         result.fold((l) {
-          emit(BaseBlocState.error(l.message));
+          emit(BaseBlocState.error(l));
         }, (r) {
           emit(BaseBlocState.next(r));
         });

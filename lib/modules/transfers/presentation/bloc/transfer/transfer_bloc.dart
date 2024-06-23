@@ -25,7 +25,7 @@ class TransferBloc
           );
           emit(const BaseBlocState.loading());
           final response = await _transferMoneyUseCase.invoke(input);
-          response.fold((l) => emit(BaseBlocState.error(l.message)),
+          response.fold((l) => emit(BaseBlocState.error(l)),
               (r) => emit(BaseBlocState.next(r)));
         },
       );

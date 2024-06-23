@@ -16,5 +16,7 @@ Future<void> injector() async {
   locator.registerFactory<UserDataSource>(() => UserDataSourceImpl());
   locator.registerLazySingleton<UserRepository>(
       () => UserRepositoryImpl(userDataSource: locator<UserDataSource>()));
-  locator.registerLazySingleton<LoginUsecase>(() => LoginUsecase.instance());
+  locator.registerLazySingleton<LoginUsecase>(() => LoginUsecase(
+        userRepository: locator<UserRepository>(),
+      ));
 }

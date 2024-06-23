@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kro_trust_task/common/theme/color/kro_colors.dart';
 import 'package:kro_trust_task/common/theme/typography/kro_body_text_styles.dart';
+import 'package:kro_trust_task/utils/extensions.dart';
 
 enum KroIconAlignment { left, right }
 
@@ -72,10 +73,23 @@ class KroButton extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    title,
-                    style: KroBodyTextStyles.small.copyWith(color: textColor),
-                  )
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        title,
+                        style:
+                            KroBodyTextStyles.small.copyWith(color: textColor),
+                      ),
+                      7.horizontalGap,
+                      if (isLoading)
+                        const CircularProgressIndicator.adaptive(
+                            backgroundColor: KroColors.black,
+                            valueColor:
+                                AlwaysStoppedAnimation(KroColors.black)),
+                    ],
+                  ),
                 ],
               ));
         });

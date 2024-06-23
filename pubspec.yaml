@@ -107,3 +107,5 @@ flutter:
           weight: 200
         - asset: assets/fonts/ExtraLight.ttf
           weight: 100
+  assets:
+    - assets/images/svg/

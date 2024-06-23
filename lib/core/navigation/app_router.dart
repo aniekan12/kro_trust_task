@@ -1,6 +1,8 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kro_trust_task/core/navigation/app_pages.dart';
 import 'package:kro_trust_task/modules/home/presentation/screens/home_screen.dart';
+import 'package:kro_trust_task/modules/login/presentation/bloc/login/login_bloc.dart';
 import 'package:kro_trust_task/modules/login/presentation/screens/login_root.dart';
 
 GoRouter appRouter() => GoRouter(

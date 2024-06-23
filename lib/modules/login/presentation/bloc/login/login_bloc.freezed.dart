@@ -18,19 +18,19 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$LoginEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(LoginDto loginDto) login,
+    required TResult Function() login,
     required TResult Function() logout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(LoginDto loginDto)? login,
+    TResult? Function()? login,
     TResult? Function()? logout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(LoginDto loginDto)? login,
+    TResult Function()? login,
     TResult Function()? logout,
     required TResult orElse(),
   }) =>
@@ -79,8 +79,6 @@ abstract class _$$LoginImplCopyWith<$Res> {
   factory _$$LoginImplCopyWith(
           _$LoginImpl value, $Res Function(_$LoginImpl) then) =
       __$$LoginImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({LoginDto loginDto});
 }
 
 /// @nodoc
@@ -90,79 +88,54 @@ class __$$LoginImplCopyWithImpl<$Res>
   __$$LoginImplCopyWithImpl(
       _$LoginImpl _value, $Res Function(_$LoginImpl) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? loginDto = null,
-  }) {
-    return _then(_$LoginImpl(
-      loginDto: null == loginDto
-          ? _value.loginDto
-          : loginDto // ignore: cast_nullable_to_non_nullable
-              as LoginDto,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$LoginImpl implements _Login {
-  const _$LoginImpl({required this.loginDto});
-
-  @override
-  final LoginDto loginDto;
+  const _$LoginImpl();
 
   @override
   String toString() {
-    return 'LoginEvent.login(loginDto: $loginDto)';
+    return 'LoginEvent.login()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$LoginImpl &&
-            (identical(other.loginDto, loginDto) ||
-                other.loginDto == loginDto));
+        (other.runtimeType == runtimeType && other is _$LoginImpl);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loginDto);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$LoginImplCopyWith<_$LoginImpl> get copyWith =>
-      __$$LoginImplCopyWithImpl<_$LoginImpl>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(LoginDto loginDto) login,
+    required TResult Function() login,
     required TResult Function() logout,
   }) {
-    return login(loginDto);
+    return login();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(LoginDto loginDto)? login,
+    TResult? Function()? login,
     TResult? Function()? logout,
   }) {
-    return login?.call(loginDto);
+    return login?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(LoginDto loginDto)? login,
+    TResult Function()? login,
     TResult Function()? logout,
     required TResult orElse(),
   }) {
     if (login != null) {
-      return login(loginDto);
+      return login();
     }
     return orElse();
   }
@@ -200,12 +173,7 @@ class _$LoginImpl implements _Login {
 }
 
 abstract class _Login implements LoginEvent {
-  const factory _Login({required final LoginDto loginDto}) = _$LoginImpl;
-
-  LoginDto get loginDto;
-  @JsonKey(ignore: true)
-  _$$LoginImplCopyWith<_$LoginImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory _Login() = _$LoginImpl;
 }
 
 /// @nodoc
@@ -246,7 +214,7 @@ class _$LogoutImpl implements _Logout {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(LoginDto loginDto) login,
+    required TResult Function() login,
     required TResult Function() logout,
   }) {
     return logout();
@@ -255,7 +223,7 @@ class _$LogoutImpl implements _Logout {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(LoginDto loginDto)? login,
+    TResult? Function()? login,
     TResult? Function()? logout,
   }) {
     return logout?.call();
@@ -264,7 +232,7 @@ class _$LogoutImpl implements _Logout {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(LoginDto loginDto)? login,
+    TResult Function()? login,
     TResult Function()? logout,
     required TResult orElse(),
   }) {

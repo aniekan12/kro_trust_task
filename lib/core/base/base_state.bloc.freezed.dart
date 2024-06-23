@@ -21,7 +21,7 @@ mixin _$BaseBlocState<T> {
     required TResult Function() init,
     required TResult Function() loading,
     required TResult Function(T data) next,
-    required TResult Function(String error) error,
+    required TResult Function(KroException error) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,7 +29,7 @@ mixin _$BaseBlocState<T> {
     TResult? Function()? init,
     TResult? Function()? loading,
     TResult? Function(T data)? next,
-    TResult? Function(String error)? error,
+    TResult? Function(KroException error)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,7 +37,7 @@ mixin _$BaseBlocState<T> {
     TResult Function()? init,
     TResult Function()? loading,
     TResult Function(T data)? next,
-    TResult Function(String error)? error,
+    TResult Function(KroException error)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -127,7 +127,7 @@ class _$InitImpl<T> implements _Init<T> {
     required TResult Function() init,
     required TResult Function() loading,
     required TResult Function(T data) next,
-    required TResult Function(String error) error,
+    required TResult Function(KroException error) error,
   }) {
     return init();
   }
@@ -138,7 +138,7 @@ class _$InitImpl<T> implements _Init<T> {
     TResult? Function()? init,
     TResult? Function()? loading,
     TResult? Function(T data)? next,
-    TResult? Function(String error)? error,
+    TResult? Function(KroException error)? error,
   }) {
     return init?.call();
   }
@@ -149,7 +149,7 @@ class _$InitImpl<T> implements _Init<T> {
     TResult Function()? init,
     TResult Function()? loading,
     TResult Function(T data)? next,
-    TResult Function(String error)? error,
+    TResult Function(KroException error)? error,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -241,7 +241,7 @@ class _$LoadingImpl<T> implements _Loading<T> {
     required TResult Function() init,
     required TResult Function() loading,
     required TResult Function(T data) next,
-    required TResult Function(String error) error,
+    required TResult Function(KroException error) error,
   }) {
     return loading();
   }
@@ -252,7 +252,7 @@ class _$LoadingImpl<T> implements _Loading<T> {
     TResult? Function()? init,
     TResult? Function()? loading,
     TResult? Function(T data)? next,
-    TResult? Function(String error)? error,
+    TResult? Function(KroException error)? error,
   }) {
     return loading?.call();
   }
@@ -263,7 +263,7 @@ class _$LoadingImpl<T> implements _Loading<T> {
     TResult Function()? init,
     TResult Function()? loading,
     TResult Function(T data)? next,
-    TResult Function(String error)? error,
+    TResult Function(KroException error)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -382,7 +382,7 @@ class _$SuccessImpl<T> implements _Success<T> {
     required TResult Function() init,
     required TResult Function() loading,
     required TResult Function(T data) next,
-    required TResult Function(String error) error,
+    required TResult Function(KroException error) error,
   }) {
     return next(data);
   }
@@ -393,7 +393,7 @@ class _$SuccessImpl<T> implements _Success<T> {
     TResult? Function()? init,
     TResult? Function()? loading,
     TResult? Function(T data)? next,
-    TResult? Function(String error)? error,
+    TResult? Function(KroException error)? error,
   }) {
     return next?.call(data);
   }
@@ -404,7 +404,7 @@ class _$SuccessImpl<T> implements _Success<T> {
     TResult Function()? init,
     TResult Function()? loading,
     TResult Function(T data)? next,
-    TResult Function(String error)? error,
+    TResult Function(KroException error)? error,
     required TResult orElse(),
   }) {
     if (next != null) {
@@ -466,7 +466,7 @@ abstract class _$$ErrorImplCopyWith<T, $Res> {
           _$ErrorImpl<T> value, $Res Function(_$ErrorImpl<T>) then) =
       __$$ErrorImplCopyWithImpl<T, $Res>;
   @useResult
-  $Res call({String error});
+  $Res call({KroException error});
 }
 
 /// @nodoc
@@ -486,7 +486,7 @@ class __$$ErrorImplCopyWithImpl<T, $Res>
       null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
-              as String,
+              as KroException,
     ));
   }
 }
@@ -497,7 +497,7 @@ class _$ErrorImpl<T> implements _Error<T> {
   const _$ErrorImpl(this.error);
 
   @override
-  final String error;
+  final KroException error;
 
   @override
   String toString() {
@@ -527,7 +527,7 @@ class _$ErrorImpl<T> implements _Error<T> {
     required TResult Function() init,
     required TResult Function() loading,
     required TResult Function(T data) next,
-    required TResult Function(String error) error,
+    required TResult Function(KroException error) error,
   }) {
     return error(this.error);
   }
@@ -538,7 +538,7 @@ class _$ErrorImpl<T> implements _Error<T> {
     TResult? Function()? init,
     TResult? Function()? loading,
     TResult? Function(T data)? next,
-    TResult? Function(String error)? error,
+    TResult? Function(KroException error)? error,
   }) {
     return error?.call(this.error);
   }
@@ -549,7 +549,7 @@ class _$ErrorImpl<T> implements _Error<T> {
     TResult Function()? init,
     TResult Function()? loading,
     TResult Function(T data)? next,
-    TResult Function(String error)? error,
+    TResult Function(KroException error)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -597,9 +597,9 @@ class _$ErrorImpl<T> implements _Error<T> {
 }
 
 abstract class _Error<T> implements BaseBlocState<T> {
-  const factory _Error(final String error) = _$ErrorImpl<T>;
+  const factory _Error(final KroException error) = _$ErrorImpl<T>;
 
-  String get error;
+  KroException get error;
   @JsonKey(ignore: true)
   _$$ErrorImplCopyWith<T, _$ErrorImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;

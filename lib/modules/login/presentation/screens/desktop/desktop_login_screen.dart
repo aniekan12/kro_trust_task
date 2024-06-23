@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kro_trust_task/common/theme/color/kro_colors.dart';
 import 'package:kro_trust_task/common/theme/typography/kro_body_text_styles.dart';
-import 'package:kro_trust_task/modules/widgets/buttons/kro_button.dart';
-import 'package:kro_trust_task/modules/widgets/inputs/kro_input.dart';
+import 'package:kro_trust_task/modules/login/presentation/bloc/login/login_bloc.dart';
+import 'package:kro_trust_task/modules/login/presentation/widgets/login_button.dart';
+import 'package:kro_trust_task/modules/widgets/inputs/kro_text_field.dart';
 import 'package:kro_trust_task/utils/extensions.dart';
 
 class DesktopLoginScreen extends StatefulWidget {
@@ -15,8 +18,10 @@ class DesktopLoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<DesktopLoginScreen> {
   @override
   Widget build(BuildContext context) {
+    var bloc = context.read<LoginBloc>();
+
     return Scaffold(
-      backgroundColor: KroColors.white,
+      backgroundColor: KroColors.white.shade700,
       body: Row(
         children: [
           Column(
@@ -38,29 +43,20 @@ class _LoginScreenState extends State<DesktopLoginScreen> {
             ],
           ),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                KroInput.text(
-                    labelText: 'Email',
-                    hintText: 'Email',
-                    controller: TextEditingController()),
-                // 20.verticalGap,
-                KroInput.password(
-                    labelText: 'Password',
-                    hintText: 'Password',
-                    controller: TextEditingController()),
-                20.verticalGap,
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: KroButton.primary(
-                    title: 'Login',
-                    onTap: () {},
-                    state: ValueNotifier(false),
-                  ),
-                )
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  KroTextField.text(
+                      labelText: 'Email',
+                      hintText: 'Email',
+                      inputController: bloc.form.emailController),
+                  100.verticalGap,
+                  LoginButton(bloc: bloc),
+                ],
+              ),
             ),
           )
         ],

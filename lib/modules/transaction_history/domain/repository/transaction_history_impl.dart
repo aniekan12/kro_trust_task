@@ -19,7 +19,7 @@ class TransactionHistoryRepositoryImpl implements TransactionHistoryRepository {
       final result = await _transactionHistoryDatasource.getTransactions();
       return Right(result);
     } catch (e) {
-      throw Left(KroException.fromMessage(e.toString()));
+      return Left(KroException.fromMessage(e.toString()));
     }
   }
 }
