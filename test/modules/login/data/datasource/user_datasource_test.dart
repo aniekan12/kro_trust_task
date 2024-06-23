@@ -4,7 +4,7 @@ import 'package:kro_trust_task/modules/login/data/dto/login_dto.dart';
 import 'package:kro_trust_task/modules/login/data/models/login_response.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import '../../../../core/navigation/mock_data.dart';
+import '../../../../core/mock_data.dart';
 import 'user_datasource_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<UserDataSource>()])

@@ -7,7 +7,7 @@ import 'package:kro_trust_task/modules/login/data/repository/user_repository.dar
 import 'package:kro_trust_task/modules/login/domain/repository/user_repository_impl.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../../../core/navigation/mock_data.dart';
+import '../../../../core/mock_data.dart';
 import '../datasource/user_datasource_test.mocks.dart';
 
 void main() {

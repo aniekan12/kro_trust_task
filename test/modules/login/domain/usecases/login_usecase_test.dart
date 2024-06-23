@@ -8,7 +8,7 @@ import 'package:kro_trust_task/modules/login/domain/repository/user_repository_i
 import 'package:kro_trust_task/modules/login/domain/usecases/login_usecase.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../../../core/navigation/mock_data.dart';
+import '../../../../core/mock_data.dart';
 import '../../data/datasource/user_datasource_test.mocks.dart';
 
 void main() async {

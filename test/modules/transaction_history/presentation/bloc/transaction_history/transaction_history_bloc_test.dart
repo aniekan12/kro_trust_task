@@ -9,7 +9,7 @@ import 'package:kro_trust_task/modules/transaction_history/domain/usecases/fetch
 import 'package:kro_trust_task/modules/transaction_history/presentation/bloc/transaction_history/transaction_history_bloc.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../../../../core/navigation/mock_data.dart';
+import '../../../../../core/mock_data.dart';
 import '../../../data/datasources/transaction_history_datasource_test.mocks.dart';
 
 void main() {

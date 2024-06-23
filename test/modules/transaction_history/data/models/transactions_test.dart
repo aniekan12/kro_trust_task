@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kro_trust_task/modules/transaction_history/data/models/transactions.dart';
 
-import '../../../../core/navigation/mock_data.dart';
+import '../../../../core/mock_data.dart';
 
 void main() {
   group('Transaction', () {

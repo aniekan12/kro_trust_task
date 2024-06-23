@@ -7,7 +7,7 @@ import 'package:kro_trust_task/modules/transaction_history/domain/repository/tra
 import 'package:kro_trust_task/modules/transaction_history/domain/usecases/fetch_transaction_history_usecase.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../../../core/navigation/mock_data.dart';
+import '../../../../core/mock_data.dart';
 import '../../data/datasources/transaction_history_datasource_test.mocks.dart';
 
 void main() async {

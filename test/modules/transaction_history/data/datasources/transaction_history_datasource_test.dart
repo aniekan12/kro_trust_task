@@ -3,7 +3,7 @@ import 'package:kro_trust_task/modules/transaction_history/data/datasources/tran
 import 'package:kro_trust_task/modules/transaction_history/data/models/transactions.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import '../../../../core/navigation/mock_data.dart';
+import '../../../../core/mock_data.dart';
 import 'transaction_history_datasource_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<TransactionHistoryDatasource>()])

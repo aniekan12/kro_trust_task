@@ -25,3 +25,10 @@ final mockTransactionResponse = {
     },
   ]
 };
+
+final mockTransferResponse = {
+  "amount": "100.00",
+  "message": "Transfer successful",
+  "description": "Funds have been successfully transferred to the recipient.",
+  "recepient": "John Doe"
+};

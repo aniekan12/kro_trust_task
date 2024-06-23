@@ -11,7 +11,7 @@ import 'package:kro_trust_task/modules/login/presentation/bloc/login/login_bloc.
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../../../../core/navigation/mock_data.dart';
+import '../../../../../core/mock_data.dart';
 import '../../../data/datasource/user_datasource_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<LoginUsecase>()])

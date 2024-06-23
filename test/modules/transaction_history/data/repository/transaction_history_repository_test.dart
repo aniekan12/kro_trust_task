@@ -6,7 +6,7 @@ import 'package:kro_trust_task/modules/transaction_history/data/repository/trans
 import 'package:kro_trust_task/modules/transaction_history/domain/repository/transaction_history_impl.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../../../core/navigation/mock_data.dart';
+import '../../../../core/mock_data.dart';
 import '../datasources/transaction_history_datasource_test.mocks.dart';
 
 void main() {
