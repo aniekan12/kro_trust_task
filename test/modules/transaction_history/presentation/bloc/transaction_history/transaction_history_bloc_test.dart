@@ -35,9 +35,15 @@ void main() {
         act: (bloc) {
           bloc.add(TransactionHistoryEvent.fetchTransactionHistory());
         },
-        expect: () => <BaseBlocState<Transaction>>[
+        expect: () => <BaseBlocState<List<TransactionData>>>[
               const BaseBlocState.loading(),
-              BaseBlocState.next(Transaction.fromJson(mockTransactionResponse)),
+              const BaseBlocState.next([
+                TransactionData(
+                    date: '2024-05-01',
+                    type: 'Opening',
+                    amount: '-',
+                    description: 'Opening balance')
+              ]),
             ]);
   });
 }

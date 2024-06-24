@@ -11,7 +11,7 @@ class TransferDatasourceImpl implements TransferDataSource {
   Future<TransferResponse> transferMoney(
       {required TransferDto transferDto}) async {
     try {
-      if (transferDto.accountNumber.isNotEmpty && transferDto.amount == 100) {
+      if (transferDto.accountNumber.isNotEmpty) {
         await delay(5.seconds);
         return TransferResponse.fromJson(mockTransferResponse);
       } else {

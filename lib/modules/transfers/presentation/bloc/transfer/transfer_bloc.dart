@@ -23,7 +23,7 @@ class TransferBloc
       await event.map(transferMoney: (_) async {
         final input = TransferDto(
           accountNumber: form.accountNumberController.controller.text,
-          amount: double.parse(form.amountController.controller.text),
+          amount: 100,
         );
         emit(const BaseBlocState.loading());
         final response = await _transferMoneyUseCase.invoke(input);
