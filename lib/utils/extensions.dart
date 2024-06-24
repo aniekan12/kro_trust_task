@@ -2,6 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kro_trust_task/common/theme/kro_size_config.dart';
 
+extension CurrencyUtil on num {
+  static final f = NumberFormat("###,###,###,###,###,###,##0.00", "en_NG");
+  static final _f2 = NumberFormat("#,##0", "en_NG");
+
+  String get formatCurrencyWithoutSymbolAndDividing => f.format(this);
+
+  String get formatCurrency => "₦${f.format(this)}";
+
+  String get formatCurrencyWithoutSymbol => f.format(this / 100);
+
+  String get formatCurrencyWithoutLeadingZero => "₦${_f2.format(this / 100)}";
+}
+
 extension XBuildContext on BuildContext {
   MediaQueryData get mq => MediaQuery.of(this);
 

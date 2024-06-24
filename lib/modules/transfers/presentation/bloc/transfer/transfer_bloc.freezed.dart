@@ -16,20 +16,19 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TransferEvent {
-  TransferDto get transferDto => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(TransferDto transferDto) transferMoney,
+    required TResult Function() transferMoney,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(TransferDto transferDto)? transferMoney,
+    TResult? Function()? transferMoney,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TransferDto transferDto)? transferMoney,
+    TResult Function()? transferMoney,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -49,10 +48,6 @@ mixin _$TransferEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $TransferEventCopyWith<TransferEvent> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -60,8 +55,6 @@ abstract class $TransferEventCopyWith<$Res> {
   factory $TransferEventCopyWith(
           TransferEvent value, $Res Function(TransferEvent) then) =
       _$TransferEventCopyWithImpl<$Res, TransferEvent>;
-  @useResult
-  $Res call({TransferDto transferDto});
 }
 
 /// @nodoc
@@ -73,30 +66,13 @@ class _$TransferEventCopyWithImpl<$Res, $Val extends TransferEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? transferDto = null,
-  }) {
-    return _then(_value.copyWith(
-      transferDto: null == transferDto
-          ? _value.transferDto
-          : transferDto // ignore: cast_nullable_to_non_nullable
-              as TransferDto,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$TransferMoneyImplCopyWith<$Res>
-    implements $TransferEventCopyWith<$Res> {
+abstract class _$$TransferMoneyImplCopyWith<$Res> {
   factory _$$TransferMoneyImplCopyWith(
           _$TransferMoneyImpl value, $Res Function(_$TransferMoneyImpl) then) =
       __$$TransferMoneyImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({TransferDto transferDto});
 }
 
 /// @nodoc
@@ -106,76 +82,51 @@ class __$$TransferMoneyImplCopyWithImpl<$Res>
   __$$TransferMoneyImplCopyWithImpl(
       _$TransferMoneyImpl _value, $Res Function(_$TransferMoneyImpl) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? transferDto = null,
-  }) {
-    return _then(_$TransferMoneyImpl(
-      transferDto: null == transferDto
-          ? _value.transferDto
-          : transferDto // ignore: cast_nullable_to_non_nullable
-              as TransferDto,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$TransferMoneyImpl implements _TransferMoney {
-  _$TransferMoneyImpl({required this.transferDto});
-
-  @override
-  final TransferDto transferDto;
+  _$TransferMoneyImpl();
 
   @override
   String toString() {
-    return 'TransferEvent.transferMoney(transferDto: $transferDto)';
+    return 'TransferEvent.transferMoney()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$TransferMoneyImpl &&
-            (identical(other.transferDto, transferDto) ||
-                other.transferDto == transferDto));
+        (other.runtimeType == runtimeType && other is _$TransferMoneyImpl);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, transferDto);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$TransferMoneyImplCopyWith<_$TransferMoneyImpl> get copyWith =>
-      __$$TransferMoneyImplCopyWithImpl<_$TransferMoneyImpl>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(TransferDto transferDto) transferMoney,
+    required TResult Function() transferMoney,
   }) {
-    return transferMoney(transferDto);
+    return transferMoney();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(TransferDto transferDto)? transferMoney,
+    TResult? Function()? transferMoney,
   }) {
-    return transferMoney?.call(transferDto);
+    return transferMoney?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TransferDto transferDto)? transferMoney,
+    TResult Function()? transferMoney,
     required TResult orElse(),
   }) {
     if (transferMoney != null) {
-      return transferMoney(transferDto);
+      return transferMoney();
     }
     return orElse();
   }
@@ -210,13 +161,5 @@ class _$TransferMoneyImpl implements _TransferMoney {
 }
 
 abstract class _TransferMoney implements TransferEvent {
-  factory _TransferMoney({required final TransferDto transferDto}) =
-      _$TransferMoneyImpl;
-
-  @override
-  TransferDto get transferDto;
-  @override
-  @JsonKey(ignore: true)
-  _$$TransferMoneyImplCopyWith<_$TransferMoneyImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  factory _TransferMoney() = _$TransferMoneyImpl;
 }

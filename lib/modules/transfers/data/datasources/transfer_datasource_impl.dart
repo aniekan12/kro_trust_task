@@ -11,17 +11,14 @@ class TransferDatasourceImpl implements TransferDataSource {
   Future<TransferResponse> transferMoney(
       {required TransferDto transferDto}) async {
     try {
-      if (transferDto.accountNumber.isNotEmpty &&
-          transferDto.amount.toString().isNotEmpty) {
+      if (transferDto.accountNumber.isNotEmpty && transferDto.amount == 100) {
         await delay(5.seconds);
         return TransferResponse.fromJson(mockTransferResponse);
       } else {
-        throw KroException.fromMessage(
-            'Please enter a valid account number and amount!');
+        throw KroException.fromMessage('Insufficent Balance');
       }
     } catch (e) {
-      throw KroException.fromMessage(
-          'Please enter a valid account number and amount!');
+      throw KroException.fromMessage('Insufficient Balanace');
     }
   }
 }

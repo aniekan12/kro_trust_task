@@ -51,7 +51,7 @@ class TransactionItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Email: ${transaction.description}',
+                  'Description: ${transaction.description}',
                   style: KroBodyTextStyles.small
                       .copyWith(color: KroColors.bodyText),
                 ),

@@ -25,10 +25,10 @@ class LoginBloc extends Bloc<LoginEvent, BaseBlocState<LoginResponse>> {
             password: form.passwordController.controller.text,
           );
           final result = await _loginUsecase.invoke(input);
-          result.fold(
-            (l) => emit(BaseBlocState.error(l)),
-            (r) => emit(BaseBlocState.next(r)),
-          );
+          result.fold((l) => emit(BaseBlocState.error(l)), (r) {
+            emit(BaseBlocState.next(r));
+            form.clearForm();
+          });
         },
         logout: (_) {},
       );

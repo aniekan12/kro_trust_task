@@ -17,4 +17,10 @@ abstract class KroInputForm {
       });
     }
   }
+
+  clearForm() {
+    for (var element in inputControllers) {
+      element.controller.clear();
+    }
+  }
 }

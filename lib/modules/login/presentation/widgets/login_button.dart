@@ -22,14 +22,9 @@ class LoginButton extends StatelessWidget {
       listener: (context, state) {
         state.when(
           init: () {},
-          loading: () {
-            const CupertinoActivityIndicator(
-              radius: 20,
-              color: KroColors.primary,
-            );
-          },
+          loading: () {},
           next: (data) {
-            context.pushReplacement(AppPages.home);
+            context.pushReplacement(AppPages.home, extra: data);
             KroAlerts.success(message: "Welcome", context: context);
           },
           error: (error) {

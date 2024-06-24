@@ -18,8 +18,12 @@ class TransferRepositoryImpl implements TransferRepository {
     try {
       final result = await _dataSource.transferMoney(transferDto: dto);
       return Right(result);
-    } catch (e) {
-      throw Left(KroException.fromMessage(e.toString()));
+    } on KroException catch (e) {
+      return Left(KroException(
+          statusCode: e.statusCode,
+          message: e.message,
+          description: e.description,
+          cause: e.cause));
     }
   }
 }

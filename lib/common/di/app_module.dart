@@ -12,6 +12,11 @@ import 'package:kro_trust_task/modules/transaction_history/data/datasources/tran
 import 'package:kro_trust_task/modules/transaction_history/data/repository/transaction_history_repository.dart';
 import 'package:kro_trust_task/modules/transaction_history/domain/repository/transaction_history_impl.dart';
 import 'package:kro_trust_task/modules/transaction_history/domain/usecases/fetch_transaction_history_usecase.dart';
+import 'package:kro_trust_task/modules/transfers/data/datasources/transfer_datasource.dart';
+import 'package:kro_trust_task/modules/transfers/data/datasources/transfer_datasource_impl.dart';
+import 'package:kro_trust_task/modules/transfers/data/repository/transfer_repository.dart';
+import 'package:kro_trust_task/modules/transfers/domain/repository/transfer_repository_impl.dart';
+import 'package:kro_trust_task/modules/transfers/domain/usecases/transfer_money_usecase.dart';
 
 final locator = GetIt.instance;
 
@@ -34,4 +39,11 @@ Future<void> injector() async {
       FetchTransactionHistoryUseCase(
         transactionHistoryRepository: locator<TransactionHistoryRepository>(),
       ));
+  locator.registerFactory<TransferDataSource>(() => TransferDatasourceImpl());
+  locator.registerLazySingleton<TransferRepository>(
+      () => TransferRepositoryImpl(dataSource: locator<TransferDataSource>()));
+  locator
+      .registerLazySingleton<TransferMoneyUseCase>(() => TransferMoneyUseCase(
+            transferRepository: locator<TransferRepository>(),
+          ));
 }
