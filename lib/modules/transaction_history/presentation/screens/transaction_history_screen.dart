@@ -44,9 +44,8 @@ class TransactionHistoryScreen extends StatelessWidget {
                 return state.when(
                     init: () => const SliverToBoxAdapter(child: KroLoader()),
                     loading: () => const SliverToBoxAdapter(child: KroLoader()),
-                    next: (next) {
-                      return TransactionHistoryItemView(transactions: next);
-                    },
+                    next: (next) =>
+                        TransactionHistoryItemView(transactions: next),
                     error: (error) => const ErrorView());
               },
               listener: (context, state) {},
