@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
 import 'package:kro_resources/common/io/exceptions/kro_exceptions.dart';
 import 'package:kro_trust_task/common/di/app_module.dart';

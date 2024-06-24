@@ -53,6 +53,11 @@ class _LoginScreenState extends State<DesktopLoginScreen> {
                       labelText: 'Email',
                       hintText: 'Email',
                       inputController: bloc.form.emailController),
+                  20.verticalGap,
+                  KroTextField.text(
+                      labelText: 'Password',
+                      hintText: 'Password',
+                      inputController: bloc.form.passwordController),
                   100.verticalGap,
                   LoginButton(bloc: bloc),
                 ],

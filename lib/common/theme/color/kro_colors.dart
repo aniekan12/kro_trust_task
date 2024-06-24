@@ -418,4 +418,5 @@ class KroColors {
     },
   );
   static const Color transparent = Colors.transparent;
+  static Color smoke = const Color(0xFFF9F9F9);
 }

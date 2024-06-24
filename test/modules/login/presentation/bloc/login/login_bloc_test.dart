@@ -27,7 +27,7 @@ void main() {
     const loginDto =
         LoginDto(email: 'akpakpan764@gmail.com', password: 'Password123');
     when(userDataSource.login(dto: loginDto))
-        .thenAnswer((_) async => LoginResponse.fromJson(mockLoginReponse));
+        .thenAnswer((_) async => LoginResponse.fromJson({}));
   });
 
   group('login bloc', () {
@@ -35,9 +35,7 @@ void main() {
         'emits login success when login event is added.',
         build: () => LoginBloc(loginUsecase: loginUsecase),
         act: (bloc) {
-          const loginDto =
-              LoginDto(email: 'akpakpan764@gmail.com', password: 'Password123');
-          bloc.add(const LoginEvent.login(loginDto: loginDto));
+          bloc.add(const LoginEvent.login());
         },
         expect: () => <BaseBlocState<LoginResponse>>[
               const BaseBlocState.loading(),

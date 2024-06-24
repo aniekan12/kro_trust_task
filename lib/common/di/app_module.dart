@@ -7,6 +7,11 @@ import 'package:kro_trust_task/modules/login/data/datasource/user_datasource_imp
 import 'package:kro_trust_task/modules/login/data/repository/user_repository.dart';
 import 'package:kro_trust_task/modules/login/domain/repository/user_repository_impl.dart';
 import 'package:kro_trust_task/modules/login/domain/usecases/login_usecase.dart';
+import 'package:kro_trust_task/modules/transaction_history/data/datasources/transaction_history_datasource.dart';
+import 'package:kro_trust_task/modules/transaction_history/data/datasources/transaction_history_datasource_impl.dart';
+import 'package:kro_trust_task/modules/transaction_history/data/repository/transaction_history_repository.dart';
+import 'package:kro_trust_task/modules/transaction_history/domain/repository/transaction_history_impl.dart';
+import 'package:kro_trust_task/modules/transaction_history/domain/usecases/fetch_transaction_history_usecase.dart';
 
 final locator = GetIt.instance;
 
@@ -18,5 +23,15 @@ Future<void> injector() async {
       () => UserRepositoryImpl(userDataSource: locator<UserDataSource>()));
   locator.registerLazySingleton<LoginUsecase>(() => LoginUsecase(
         userRepository: locator<UserRepository>(),
+      ));
+  locator.registerFactory<TransactionHistoryDatasource>(
+      () => TransactionHistoryDatasourceImpl());
+  locator.registerLazySingleton<TransactionHistoryRepository>(() =>
+      TransactionHistoryRepositoryImpl(
+          transactionHistoryDatasource:
+              locator<TransactionHistoryDatasource>()));
+  locator.registerLazySingleton<FetchTransactionHistoryUseCase>(() =>
+      FetchTransactionHistoryUseCase(
+        transactionHistoryRepository: locator<TransactionHistoryRepository>(),
       ));
 }

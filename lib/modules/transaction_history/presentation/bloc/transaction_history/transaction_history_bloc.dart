@@ -6,8 +6,8 @@ import 'package:kro_trust_task/modules/transaction_history/domain/usecases/fetch
 part 'transaction_history_event.dart';
 part 'transaction_history_bloc.freezed.dart';
 
-class TransactionHistoryBloc
-    extends Bloc<TransactionHistoryEvent, BaseBlocState<Transaction>> {
+class TransactionHistoryBloc extends Bloc<TransactionHistoryEvent,
+    BaseBlocState<List<TransactionData>>> {
   final FetchTransactionHistoryUseCase _fetchTransactionHistoryUseCase;
 
   TransactionHistoryBloc(
@@ -16,14 +16,13 @@ class TransactionHistoryBloc
             FetchTransactionHistoryUseCase.instance(),
         super(const BaseBlocState.init()) {
     on<TransactionHistoryEvent>((event, emit) async {
-      event.map(fetchTransactionHistory: (event) async {
+      await event.map(fetchTransactionHistory: (event) async {
         emit(const BaseBlocState.loading());
         final result = await _fetchTransactionHistoryUseCase.invoke();
-        result.fold((l) {
-          emit(BaseBlocState.error(l));
-        }, (r) {
-          emit(BaseBlocState.next(r));
-        });
+        result.fold(
+          (l) => emit(BaseBlocState.error(l)),
+          (r) => emit(BaseBlocState.next(r.data)),
+        );
       });
     });
   }

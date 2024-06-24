@@ -28,7 +28,7 @@ void main() {
   });
 
   group('transaction history bloc', () {
-    blocTest<TransactionHistoryBloc, BaseBlocState<Transaction>>(
+    blocTest<TransactionHistoryBloc, BaseBlocState<List<TransactionData>>>(
         'emits login success when fetch transaction history event is added.',
         build: () => TransactionHistoryBloc(
             fetchTransactionHistoryUseCase: transactionHistoryUseCase),

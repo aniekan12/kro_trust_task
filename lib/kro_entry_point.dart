@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kro_trust_task/common/di/app_module.dart';
+import 'package:kro_trust_task/modules/transaction_history/presentation/bloc/transaction_history/transaction_history_bloc.dart';
 import 'package:oktoast/oktoast.dart';
 
 class KroEntryPoint extends StatefulWidget {
@@ -14,10 +16,18 @@ class _KroEntryPointState extends State<KroEntryPoint> {
   final _router = locator.get<GoRouter>();
   @override
   Widget build(BuildContext context) {
-    return OKToast(
-      child: MaterialApp.router(
-        routerConfig: _router,
-        debugShowCheckedModeBanner: false,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => TransactionHistoryBloc()
+            ..add(TransactionHistoryEvent.fetchTransactionHistory()),
+        ),
+      ],
+      child: OKToast(
+        child: MaterialApp.router(
+          routerConfig: _router,
+          debugShowCheckedModeBanner: false,
+        ),
       ),
     );
   }
