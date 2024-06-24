@@ -37,7 +37,9 @@ GoRouter appRouter() => GoRouter(
             name: AppPages.transferSuccess,
             builder: (context, state) {
               final data = state.extra as TransferResponse;
-              return TransferSuccessTerminal(transferResponse: data);
+              return TransferSuccessTerminal(
+                transferResponse: data,
+              );
             }),
         GoRoute(
             path: AppPages.dashboard,
